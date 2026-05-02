@@ -17,6 +17,9 @@ async function seed() {
   try {
     const sqlPath = path.join(process.cwd(), 'refs/digikulina_resto.sql');
     const sqlContent = fs.readFileSync(sqlPath, 'utf8');
+    
+    const paymentSqlPath = path.join(process.cwd(), 'refs/paymentxnd.sql');
+    const paymentSqlContent = fs.readFileSync(paymentSqlPath, 'utf8');
 
     // Clear existing data
     console.log('Clearing existing data...');
@@ -32,12 +35,19 @@ async function seed() {
     `);
 
     // Extract only the INSERT statements, ignoring schema creation
-    const statements = sqlContent
+    const statements1 = sqlContent
       .split(';')
       .map(s => s.trim())
       .filter(s => s.includes('INSERT INTO') || s.includes('SELECT setval'));
 
-    for (const statement of statements) {
+    const statements2 = paymentSqlContent
+      .split(';')
+      .map(s => s.trim())
+      .filter(s => s.includes('INSERT INTO') || s.includes('SELECT setval'));
+
+    const allStatements = [...statements1, ...statements2];
+
+    for (const statement of allStatements) {
       if (statement) {
         await db.execute(statement);
       }

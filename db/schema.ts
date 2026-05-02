@@ -179,26 +179,36 @@ export const coupons = pgTable('coupons', {
 }, (t) => ({
   unq: unique().on(t.brandId, t.code),
 }));
-
 export const paymentMethods = pgTable('payment_methods', {
   id: bigserial('id', { mode: 'number' }).primaryKey(),
-  brandId: bigint('brand_id', { mode: 'number' }).notNull().references(() => brands.id, { onDelete: 'cascade' }),
+  brandId: bigint('brand_id', { mode: 'number' }).references(() => brands.id, { onDelete: 'cascade' }),
   code: varchar('code', { length: 50 }).notNull(),
-  vendor: varchar('vendor', { length: 50 }).notNull(),
+  vendor: varchar('vendor', { length: 50 }),
   name: varchar('name', { length: 100 }).notNull(),
-  type: varchar('type', { length: 20 }).notNull(),
+  logoUrl: varchar('logo_url', { length: 255 }),
+  type: varchar('type', { length: 50 }).notNull(),
+  provider: varchar('provider', { length: 50 }),
   feeFlat: decimal('fee_flat', { precision: 10, scale: 2 }).default('0'),
   feePercentage: decimal('fee_percentage', { precision: 5, scale: 2 }).default('0'),
+  adminFeeFlat: bigint('admin_fee_flat', { mode: 'number' }).default(0),
+  adminFeePct: decimal('admin_fee_pct', { precision: 5, scale: 2 }).default('0.00'),
   isPublish: boolean('is_publish').default(true),
   isActive: boolean('is_active').default(true),
+  isRedirect: boolean('is_redirect').default(false),
+  sortOrder: integer('sort_order').default(0),
 });
 
 export const paymentInstructions = pgTable('payment_instructions', {
   id: bigserial('id', { mode: 'number' }).primaryKey(),
   paymentMethodId: bigint('payment_method_id', { mode: 'number' }).notNull().references(() => paymentMethods.id, { onDelete: 'cascade' }),
-  stepNumber: integer('step_number').notNull(),
-  instructionText: text('instruction_text').notNull(),
+  stepNumber: integer('step_number'),
+  instructionText: text('instruction_text'),
+  title: varchar('title', { length: 255 }),
+  content: text('content'),
+  sortOrder: integer('sort_order').default(0),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
+
 
 export const notifTemplates = pgTable('notif_templates', {
   id: bigserial('id', { mode: 'number' }).primaryKey(),
@@ -230,6 +240,7 @@ export const orders = pgTable('orders', {
   dpAmount: decimal('dp_amount', { precision: 10, scale: 2 }).default('0'),
   totalAmount: decimal('total_amount', { precision: 10, scale: 2 }).notNull(),
   paymentMethodId: bigint('payment_method_id', { mode: 'number' }),
+  vendorPaymentId: varchar('vendor_payment_id', { length: 255 }),
   paymentStatus: varchar('payment_status', { length: 20 }).default('unpaid'),
   currentStatus: varchar('current_status', { length: 20 }).default('pending'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),

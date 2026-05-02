@@ -488,7 +488,7 @@ INSERT INTO coupons (id, brand_id, code, discount_type, discount_value, max_disc
 (2, 2, 'POTONGAN10K', 'nominal', 10000, NULL, 50000, '2026-01-01 00:00:00+07', 850);
 
 INSERT INTO payment_methods (id, brand_id, code, vendor, name, type, fee_flat, is_active) VALUES 
-(2, 2, 'CASH', 'internal', 'Uang Tunai Kasir', 'cashier', 0, TRUE);
+(99, 2, 'CASH', 'internal', 'Uang Tunai Kasir', 'cashier', 0, TRUE);
 
 -- TRANSAKSI 2: DELIVERY VIA WA, DI-INPUT KASIR PUTRI UNTUK CUSTOMER FAJAR
 INSERT INTO orders (
@@ -496,7 +496,7 @@ INSERT INTO orders (
     customer_name, customer_phone, delivery_address, subtotal, coupon_id, discount_amount, tax_fee, total_amount, payment_method_id, payment_status, current_status, created_at
 ) VALUES (
     2, 3, 2, 5, 'MP-0426-099', 'delivery', 'cashier_pos', 'DLV-01', 
-    'Fajar', '08199999999', 'Kos Blok B', 54000, 2, 10000, 4400, 48400, 2, 'paid', 'completed', '2026-04-18 12:00:00+07'
+    'Fajar', '08199999999', 'Kos Blok B', 54000, 2, 10000, 4400, 48400, 99, 'paid', 'completed', '2026-04-18 12:00:00+07'
 );
 
 INSERT INTO order_items (id, order_id, order_created_at, product_id, quantity, base_price, final_price)
@@ -520,7 +520,7 @@ INSERT INTO orders (
     customer_name, customer_phone, delivery_address, subtotal, coupon_id, discount_amount, tax_fee, total_amount, payment_method_id, payment_status, current_status, created_at
 ) VALUES (
     3, 3, NULL, 5, 'MP-0502-100', 'dine_in', 'cashier_pos', 'A-012', 
-    'Rombongan Kantor', NULL, NULL, 147000, NULL, 0, 14700, 161700, 2, 'paid', 'completed', '2026-05-02 12:30:00+07'
+    'Rombongan Kantor', NULL, NULL, 147000, NULL, 0, 14700, 161700, 99, 'paid', 'completed', '2026-05-02 12:30:00+07'
 );
 
 INSERT INTO order_items (id, order_id, order_created_at, product_id, quantity, base_price, final_price) VALUES 

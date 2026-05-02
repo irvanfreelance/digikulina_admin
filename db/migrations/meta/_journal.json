@@ -8,6 +8,27 @@
       "when": 1777689481095,
       "tag": "0000_swift_nightcrawler",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777740428994,
+      "tag": "0001_demonic_shard",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777740446212,
+      "tag": "0002_outstanding_old_lace",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777740574140,
+      "tag": "0003_legal_tomorrow_man",
+      "breakpoints": true
     }
   ]
 }
