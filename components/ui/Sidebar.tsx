@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 
 const MODULES = [
+  { id: 'summary', title: 'Ringkasan & Statistik', icon: LayoutDashboard, path: '/admin' },
   { id: 'pos', title: 'Kasir (POS)', icon: MonitorPlay, path: '/pos' },
   { id: 'kds', title: 'Monitor Dapur (KDS)', icon: ChefHat, path: '/kds' },
   { id: 'katalog', title: 'Katalog & Menu', icon: UtensilsCrossed, path: '/admin/katalog' },
@@ -40,7 +41,7 @@ export default function Sidebar() {
         <ul className="space-y-1">
           {MODULES.map(mod => {
             const Icon = mod.icon;
-            const isActive = pathname.startsWith(mod.path);
+            const isActive = mod.path === '/admin' ? pathname === '/admin' : pathname.startsWith(mod.path);
             return (
               <li key={mod.id}>
                 <Link
